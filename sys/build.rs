@@ -17,7 +17,6 @@ fn main() {
     // Link macOS Accelerate framework for matrix calculations
     if target.contains("apple") {
         println!("cargo:rustc-link-lib=framework=Accelerate");
-        println!("cargo:rustc-link-lib=framework=CoreAudioTypes");
         #[cfg(feature = "coreml")]
         {
             println!("cargo:rustc-link-lib=framework=Foundation");
@@ -166,6 +165,10 @@ fn main() {
         .very_verbose(true)
         .pic(true);
 
+    if cfg!(target_os = "macos") {
+        config.define("GGML_BLAS_USE_ACCELERATE", "ON");
+        println!("cargo:rustc-link-lib=static=ggml-blas");
+    }
     if cfg!(feature = "coreml") {
         config.define("WHISPER_COREML", "ON");
         config.define("WHISPER_COREML_ALLOW_FALLBACK", "1");
