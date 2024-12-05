@@ -210,10 +210,16 @@ fn main() {
         } else {
             println!("cargo:rustc-link-lib=vulkan");
         }
+        println!("cargo:rustc-link-lib=static=ggml-vulkan");
     }
 
     if cfg!(feature = "openblas") {
         config.define("GGML_BLAS", "ON");
+        config.define("GGML_BLAS_VENDOR", "OpenBLAS");
+        config.define("BLAS_INCLUDE_DIRS", env::var("BLAS_INCLUDE_DIRS").unwrap());
+        println!("cargo:rustc-link-lib=openblas");
+        println!("cargo:rustc-link-lib=static=ggml-blas");
+        println!("cargo:rerun-if-env-changed=BLAS_INCLUDE_DIRS");
     }
 
     if cfg!(feature = "metal") {
@@ -252,6 +258,8 @@ fn main() {
 
     println!("cargo:rustc-link-search=native={}", destination.display());
     println!("cargo:rustc-link-lib=static=whisper");
+    println!("cargo:rustc-link-lib=static=ggml-base");
+    println!("cargo:rustc-link-lib=static=ggml-cpu");
     println!("cargo:rustc-link-lib=static=ggml");
 
     println!(
