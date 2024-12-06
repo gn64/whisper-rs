@@ -42,11 +42,7 @@ fn main() {
                 PathBuf::from(openblas_path).join("lib").display()
             );
         }
-        if cfg!(windows) {
-            println!("cargo:rustc-link-lib=libopenblas");
-        } else {
-            println!("cargo:rustc-link-lib=openblas");
-        }
+        println!("cargo:rustc-link-lib=openblas");
     }
     #[cfg(feature = "cuda")]
     {
@@ -222,7 +218,6 @@ fn main() {
         config.define("GGML_BLAS", "ON");
         config.define("GGML_BLAS_VENDOR", "OpenBLAS");
         config.define("BLAS_INCLUDE_DIRS", env::var("BLAS_INCLUDE_DIRS").unwrap());
-        println!("cargo:rustc-link-lib=openblas");
         println!("cargo:rustc-link-lib=static=ggml-blas");
         println!("cargo:rerun-if-env-changed=BLAS_INCLUDE_DIRS");
     }
