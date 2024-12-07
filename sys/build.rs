@@ -153,6 +153,7 @@ fn main() {
 
     config
         .profile("Release")
+        .cxxflag("/utf-8")
         .define("BUILD_SHARED_LIBS", "OFF")
         .define("WHISPER_ALL_WARNINGS", "OFF")
         .define("WHISPER_ALL_WARNINGS_3RD_PARTY", "OFF")
