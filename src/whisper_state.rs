@@ -54,9 +54,9 @@ impl WhisperState {
     #[cfg(feature = "openvino")]
     pub fn init_openvino_encoder(
         &mut self,
-        model_path: Option<&str>,
-        device: &str,
-        cache_dir: Option<&str>,
+        model_path: Option<String>,
+        device: String,
+        cache_dir: Option<String>,
     ) -> bool {
         let model_path = model_path.map(|s| CString::new(s).unwrap());
         let device = CString::new(device).unwrap();
