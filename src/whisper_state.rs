@@ -1,6 +1,5 @@
-use std::ffi::{c_int, CStr};
+use std::ffi::{c_int, CStr,CString};
 use std::sync::Arc;
-
 use crate::{FullParams, WhisperError, WhisperInnerContext, WhisperToken, WhisperTokenData};
 
 /// Rustified pointer to a Whisper state.
