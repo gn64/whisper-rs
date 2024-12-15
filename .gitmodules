@@ -1,4 +1,3 @@
 [submodule "sys/whisper.cpp"]
     path = sys/whisper.cpp
     url = https://github.com/gn64/whisper.cpp
-    branch = feature/openvino
